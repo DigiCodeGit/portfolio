@@ -2,7 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <a asp-area="Identity" asp-page="/Account/Login">Enter</a>.
+<!-- Justify is horizontal while align is vertical-->
+<!-- Have to use css "align" instead of bootstrap form class container to work-->
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container" align="center">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-4">Welcome</h1>
+            </div>
+        </div>
+        <div class="row">
+            <a asp-area="Identity" asp-page="/Account/Login">Enter</a>
+        </div>
+    </div>
 </div>
+
+
+
+

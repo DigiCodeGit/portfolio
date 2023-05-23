@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card login-logout-card border-primary" style="width: 500px">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Identity/Account/Login">Guest</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Identity/Account/Login">Member</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="my-4" align="center">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+@section Scripts{
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Function is to Wait until document finishes loading first
+        $(function () {
+
+            // Local vars
+            const currentPage = location.pathname;
+
+            /* Can't utilize this 'when click' event on anchor because clicking
+            /* will cause page to reload and script will reset to wait for document
+            /* to finish again.
+            */
+            // When user clicks on list item/tab anchor/link
+            // $('.nav-tabs li a').click(function(){
+            //    // Set tab to active
+            // })
+
+            // Look through all tabs and set active to tab that matches current page
+            $('.nav-tabs li a').each(function() {
+
+                // Vars
+                const thisAnchor = $(this);
+                var curUrl = currentPage.toLowerCase();
+                var ancUrl = thisAnchor.attr('href').toLowerCase();
+
+                // Current page url matchs anchor url
+                if (curUrl.indexOf(ancUrl) == 0) {
+                    
+                    // Highlight tab by setting to active
+                    thisAnchor.addClass('active');
+                } 
+            })
+        })
+    </script>
+}
