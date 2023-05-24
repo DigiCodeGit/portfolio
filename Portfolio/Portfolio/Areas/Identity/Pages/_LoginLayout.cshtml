@@ -7,10 +7,10 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Identity/Account/Login">Guest</a>
+                        <a class="nav-link" id="guestTab" href="/Identity/Account/Login?guestId=guestTab">Guest</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Identity/Account/Login">Member</a>
+                    <a class="nav-link" id="memberTab" href="/Identity/Account/Login?guestId=memberTab">Member</a>
                     </li>
                 </ul>
             </div>
@@ -29,11 +29,9 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
+
         // Function is to Wait until document finishes loading first
         $(function () {
-
-            // Local vars
-            const currentPage = location.pathname;
 
             /* Can't utilize this 'when click' event on anchor because clicking
             /* will cause page to reload and script will reset to wait for document
@@ -47,17 +45,34 @@
             // Look through all tabs and set active to tab that matches current page
             $('.nav-tabs li a').each(function() {
 
-                // Vars
-                const thisAnchor = $(this);
-                var curUrl = currentPage.toLowerCase();
-                var ancUrl = thisAnchor.attr('href').toLowerCase();
+                //const currentPage = location.pathname;
+                //var curUrl = currentPage.toLowerCase();
+                //var ancUrl = thisAnchor.attr('href').toLowerCase();
 
                 // Current page url matchs anchor url
-                if (curUrl.indexOf(ancUrl) == 0) {
+                //if (curUrl.indexOf(ancUrl) == 0) {
+                //
+                //}
+
+                // Vars
+                const thisAnchor = $(this);
+                var curIdVal = $('#guestId').val().toLowerCase();
+                var ancId = thisAnchor.attr('id').toLowerCase();
+
+                // Current tab id matches tab id that was clicked
+                if (curIdVal == ancId) {
                     
                     // Highlight tab by setting to active
                     thisAnchor.addClass('active');
-                } 
+                }
+                // Debug display
+                //thisAnchor.text(curIdVal);
+
+                // Event to handle tab clicks
+                //thisAnchor.click(function(){
+
+                //    $('#guestId').val(thisAnchor.attr('id'));
+                //})
             })
         })
     </script>
