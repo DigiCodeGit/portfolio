@@ -30,7 +30,7 @@
 <form id="account" method="post">
     <div class="form-group">
     <!-- Error Messages-->
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger" align="left"></div>
 
     <!-- Inputs -->
     <div class="form-floating"> <!-- Make label text show inside input field-->
@@ -78,26 +78,42 @@
     </div>
 
     <!-- Options -->
-    <div>
-        <div class="checkbox">
-            <label asp-for="Input.RememberMe" class="form-label">
-                <input class="form-check-input" asp-for="Input.RememberMe" />
-                @Html.DisplayNameFor(m => m.Input.RememberMe)
-            </label>
-        </div>
+    <p></p>
+    <div class="checkbox">
+        @{
+            // Not guest
+            if (!guestLock)
+            {
+                // Remember
+                <label asp-for="Input.RememberMe" class="form-label">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+            }
+        }
     </div>
 
     <!-- Submit -->
+    <p></p>
     <div>
         <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
     </div>
 
     <!-- Additional features -->
+    <p></p>
     <div>
         <p>
-            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+            @{
+                // Not guest
+                if (!guestLock)
+                {
+                    // Forgot Pass
+                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a>
+                }
+            }
         </p>
         <p>
+            <!-- Register -->
             <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register</a>
         </p>
     </div>
