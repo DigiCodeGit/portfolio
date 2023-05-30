@@ -3,13 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Portfolio.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var databaseConnection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+// Identity db
 builder.Services.AddDbContext<PortalIdentityDbSql>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(databaseConnection));
 
 builder.Services.AddDefaultIdentity<PortalIdentityUsers>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<PortalIdentityDbSql>();
+
+// eCommerce db
+builder.Services.AddDbContext<PortalECommerceDbSql>(options =>
+    options.UseSqlServer(databaseConnection));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Artwork>  // The model that is list of Artwork will be passed from controller to this view
+
+@{
+    ViewData["Title"] = "eCommerce";
+}
+
+<div class="d-flex">
+    <div class="container">
+
+        <!-- Loop through and display each item -->
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid" src="@item.Url" width="200"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @item.Title
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @item.Price
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Qty
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="button" value="Add" />
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

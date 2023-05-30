@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qNWqYwI6AVpdmVfTdQJFDJ/N5BdYt4bWJK2rP9h1/Gg=",
+  "Hash": "z8yh4PWG57J97inE+3Fn/453gdXgLsqbRZ57IuUzs04=",
   "Source": "Portfolio",
   "BasePath": "_content/Portfolio",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\images\\artwork1.jpg",
+      "SourceId": "Portfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\",
+      "BasePath": "_content/Portfolio",
+      "RelativePath": "images/artwork1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\artwork1.jpg"
     },
     {
       "Identity": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\js\\site.js",
