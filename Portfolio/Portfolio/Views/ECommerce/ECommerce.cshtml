@@ -4,38 +4,44 @@
     ViewData["Title"] = "eCommerce";
 }
 
-<div class="d-flex">
-    <div class="container">
+<div class="container">
 
-        <!-- Loop through and display each item -->
+    <!-- Loop through and display each item -->
+    <div class="row">
         @foreach (var item in Model)
         {
-            <div class="row">
-                <div class="col">
-                    <img class="img-fluid" src="@item.Url" width="200"/>
+            <div class="col-sm-auto">
+                <div class="row">
+                    <div class="col">
+                        <img class="img-fluid" src="@item.Url" width="200" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    @item.Title
+                <div class="row">
+                    <div class="col">
+                        @item.Title
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    @item.Price
+                <div class="row">
+                    <div class="col">
+                        $@item.Price
+                        <br /><br />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Qty
+                <div class="row">
+                    <div class="col">
+                        <label for="qty">Qty</label>
+                        <select id="qty">
+                            @for(int i = 1; i <= 10; ++i)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <input type="button" value="Add" style="width:150px" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input type="button" value="Add" />
-                </div>
+                <br /><br />
             </div>
         }
-
     </div>
+
 </div>
