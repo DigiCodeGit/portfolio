@@ -17,6 +17,14 @@
       "PackagePath": "staticwebassets\\images\\artwork1.jpg"
     },
     {
+      "Id": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\images\\artwork2.jpg",
+      "PackagePath": "staticwebassets\\images\\artwork2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\images\\artwork3.jpg",
+      "PackagePath": "staticwebassets\\images\\artwork3.jpg"
+    },
+    {
       "Id": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

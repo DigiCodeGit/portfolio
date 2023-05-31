@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "z8yh4PWG57J97inE+3Fn/453gdXgLsqbRZ57IuUzs04=",
+  "Hash": "Unw9evuDxo082E0Z2H+bXcgl5QV82Ej5Szvl+3LOcZs=",
   "Source": "Portfolio",
   "BasePath": "_content/Portfolio",
   "Mode": "Default",
@@ -1120,6 +1120,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\artwork1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\images\\artwork2.jpg",
+      "SourceId": "Portfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\",
+      "BasePath": "_content/Portfolio",
+      "RelativePath": "images/artwork2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\artwork2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\images\\artwork3.jpg",
+      "SourceId": "Portfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\",
+      "BasePath": "_content/Portfolio",
+      "RelativePath": "images/artwork3.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\artwork3.jpg"
     },
     {
       "Identity": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\wwwroot\\js\\site.js",

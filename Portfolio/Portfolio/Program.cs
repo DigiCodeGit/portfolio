@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Areas.Identity.Data;
+using Portfolio.Data;
+using Portfolio.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var databaseConnection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -15,6 +17,12 @@ builder.Services.AddDefaultIdentity<PortalIdentityUsers>(options => options.Sign
 // eCommerce db
 builder.Services.AddDbContext<PortalECommerceDbSql>(options =>
     options.UseSqlServer(databaseConnection));
+
+// eCommerce Service
+// Scoped service will last until user session ends;
+// Singleton will last until server ends (i.e. same variable/value for every user);
+// Transient will be renew every use
+builder.Services.AddScoped<IEComService,ECommerceService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
