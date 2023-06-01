@@ -23,6 +23,15 @@ builder.Services.AddDbContext<PortalECommerceDbSql>(options =>
 // Singleton will last until server ends (i.e. same variable/value for every user);
 // Transient will be renew every use
 builder.Services.AddScoped<IEComService,ECommerceService>();
+builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+
+// Set up additional session settings
+builder.Services.AddDistributedMemoryCache();  // Allow us to store objects in memory
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(72); // Timeout for scoped session
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -57,12 +66,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseStaticFiles();
 
-app.UseRouting();
-app.UseAuthentication();;
-
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

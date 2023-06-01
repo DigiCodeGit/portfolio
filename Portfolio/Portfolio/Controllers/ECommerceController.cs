@@ -16,12 +16,24 @@ namespace Portfolio.Controllers
         }
         ***/
 
+        // Local vars
+        private readonly IHttpContextAccessor _comHttpAccess; // Allows us to access Session from HTTP
         private readonly IEComService _comService;
 
         // Constructor - use to set service
-        public ECommerceController(IEComService service)
+        public ECommerceController(IEComService service, IHttpContextAccessor comHttpAccess)
         {
             _comService = service;
+            _comHttpAccess = comHttpAccess;
+
+            // Get Session Info
+            if (_comHttpAccess.HttpContext.Session.GetString("SessionId") == null) // First run, no session yet
+            {
+                _comHttpAccess.HttpContext.Session.SetString("SessionId", Guid.NewGuid().ToString());
+            }
+ 
+            // Save session info to pass to whatever view controller going to
+            ViewBag.sesId = _comHttpAccess.HttpContext.Session.GetString("SessionId"); 
         }
 
         public IActionResult ECommerce()
