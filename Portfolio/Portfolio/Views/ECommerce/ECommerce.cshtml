@@ -32,12 +32,12 @@
                     <div class="col">
                         <label for="qty">Qty</label>
                         <select id="qty">
-                            @for(int i = 1; i <= 10; ++i)
+                            @for (int i = 1; i <= 10; ++i)
                             {
                                 <option value="@i">@i</option>
                             }
                         </select>
-                        <input type="button" value="Add" style="width:150px" />
+                        <input type="button" value="Add" name="addCartBtn" style="width:150px" data-toggle="modal" data-target="#cartSummary" />
                     </div>
                 </div>
                 <br /><br />
@@ -46,3 +46,48 @@
     </div>
 
 </div>
+
+<div id="cartSummary" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" align="center">
+                    Shopping Cart Notice
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="$('#cartSummary').modal('hide');">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                This works
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        // wait for document ready
+        $(document).ready(function () {
+
+            // Adds item to cart
+            $("input[name='addCartBtn'").on('click', function () {
+
+                // Verify art id exist in database
+
+                // Get art price and calculate total based on quantity
+
+                // Show cart info
+                $('#cartSummary').modal('show');
+
+            });
+        });
+
+    </script>
+}
