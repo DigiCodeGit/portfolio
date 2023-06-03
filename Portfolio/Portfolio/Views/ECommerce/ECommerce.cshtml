@@ -37,7 +37,7 @@
                                 <option value="@i">@i</option>
                             }
                         </select>
-                        <input type="button" value="Add" name="addCartBtn" style="width:150px" data-toggle="modal" data-target="#cartSummary" />
+                        <input type="button" value="Add" name="addCartBtn" id ='@String.Concat("cartItem", @item.Key)' style="width:150px" data-toggle="modal" data-target="#cartSummary" />
                     </div>
                 </div>
                 <br /><br />
@@ -79,7 +79,25 @@
             // Adds item to cart
             $("input[name='addCartBtn'").on('click', function () {
 
-                // Verify art id exist in database
+                // Get art id
+                var artId = this.id.replace("cartItem", "");
+
+                // Build model data
+                var data = { Key: artId, URL: "", Title: "", Price: 0 };
+
+                // Build JSON data string to pass to server
+                $.ajax({
+                    type: "POST",
+                    url: "/ECommerce/AddToCart",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        alert(response);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
 
                 // Get art price and calculate total based on quantity
 

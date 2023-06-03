@@ -2,6 +2,7 @@
 using Portfolio.Areas.Identity.Data;
 using Portfolio.Data;
 using Portfolio.Data.Services;
+using Portfolio.Models;
 
 namespace Portfolio.Controllers
 {
@@ -44,10 +45,39 @@ namespace Portfolio.Controllers
             ***/
 
             // Get data through service
-            var dataArtWork = _comService.GetArt();
+            var dataArtWork = _comService.GetAllArt();
 
             // Pass the data to the view
             return View(dataArtWork);
+        }
+
+        [HttpPost]
+        public JsonResult AddToCart([FromBody] Artwork artJSON)
+        {
+            // Local vars
+            bool addSuccess = false;  // Notes if was able to successfully add item
+            CartItem userCartItem;    // User's cart item
+
+            // Valid data
+            if (artJSON != null)
+            {
+                // Find/Get art info from database
+                Artwork artPricing = _comService.GetArtById(artJSON.Key);
+
+                // Valid art found
+                if (artPricing != null)
+                {
+                    // Check if item was previously added already
+                    userCartItem = _comService.GetCartItemById()
+                    return Json("Completed");
+                }
+            }
+
+            // Unable to add item
+            if (!addSuccess)
+            {
+                return Json("Failed");
+            }
         }
     }
 }
