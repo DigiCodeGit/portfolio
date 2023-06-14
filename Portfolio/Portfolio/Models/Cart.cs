@@ -16,6 +16,6 @@ namespace Portfolio.Models
         public CartItem CartItem { get; set; } // Get Cart Item key from this table
 
         // User
-        public int UserKey { get; set; } // Session key, since no user logins
+        public string UserKey { get; set; } // Session key, since no user logins
     }
 }

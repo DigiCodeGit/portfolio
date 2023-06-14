@@ -5,6 +5,7 @@ namespace Portfolio.Data.Services
 {
     public interface IEComService
     {
+        /*** Get ***/
         // Artwork
         IEnumerable<Artwork> GetAllArt();
         Artwork GetArtById(int id);
@@ -12,8 +13,16 @@ namespace Portfolio.Data.Services
         // Cart
         Cart GetCartById(int id);
 
-        // User cart
-        Cart GetUserCartItemByArtId(int userId, int artId);
+        // Cart item
+        CartItem GetCartItemById(int id);
+
+        // User cart item
+        IEnumerable <CartItem> GetUserCartItemByArtId(string userId, int artId);
+        /*** - ***/
+
+        /*** Insert ***/
+        public void AddUserCartItem(string userId, int artId, int qty);
+        /*** - ***/
 
     }
 }

@@ -14,6 +14,7 @@ namespace Portfolio.Data.Services
             _dbSql = dbSql;
         }
 
+        /*** Get ***/
         public IEnumerable<Artwork> GetAllArt()
         {
             // Retrieve data from database
@@ -45,16 +46,30 @@ namespace Portfolio.Data.Services
 
             return (dataCartItem);
         }
-        CartItem GetUserCartItemByArtId(int userId, int artId)
+
+        public IEnumerable<CartItem> GetUserCartItemByArtId(string userId, int artId)
         {
             // Retrieve data from database
-            var dataCartItem = _dbSql.Cart
-                .Where(crt => crt.UserKey == userId)
-                .Include(itm => itm.CartItem)
-                    .Where(itm => itm.key);
+            var dataCartItem = (from crt in _dbSql.Cart
+                                join itm in _dbSql.CartItem
+                                on crt.CartItemKey equals itm.CartItemKey
+                                join art in _dbSql.Artwork
+                                on itm.Key equals art.Key
+                                where crt.UserKey == userId && art.Key == artId
+                                select itm).ToList();
 
             return (dataCartItem);
         }
-        
+        /*** - ***/
+
+
+        /*** Insert ***/
+        public void AddUserCartItem(string userId, int artId, int qty)
+        {
+            // Add cart item
+            var newCartItem = new CartItem() { Key = artId, Qty = qty};
+            _dbSql.CartItem.Add(newCartItem);
+        }
+        /*** - ***/
     }
 }

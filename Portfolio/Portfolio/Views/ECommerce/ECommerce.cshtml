@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="qty">Qty</label>
-                        <select id="qty">
+                        <select id='@String.Concat("qty", @item.Key)'>
                             @for (int i = 1; i <= 10; ++i)
                             {
                                 <option value="@i">@i</option>
@@ -79,11 +79,14 @@
             // Adds item to cart
             $("input[name='addCartBtn'").on('click', function () {
 
-                // Get art id
+                // Get art id (id is in suffix)
                 var artId = this.id.replace("cartItem", "");
 
+                // Get Quantity
+                var artQty = $('#qty' + artId).val();
+
                 // Build model data
-                var data = { Key: artId, URL: "", Title: "", Price: 0 };
+                var data = { ObjArtwork: {Key: artId, URL: "", Title: "", Price: 0}, Qty: artQty };
 
                 // Build JSON data string to pass to server
                 $.ajax({
