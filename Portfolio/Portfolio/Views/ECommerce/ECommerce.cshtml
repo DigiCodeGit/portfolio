@@ -14,7 +14,7 @@
             <div class="col-sm-auto">
                 <div class="row">
                     <div class="col">
-                        <img class="img-fluid" src="@item.Url" width="200" />
+                        <img class="img-fluid" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
                     </div>
                 </div>
                 <div class="row">
@@ -37,7 +37,7 @@
                                 <option value="@i">@i</option>
                             }
                         </select>
-                        <input type="button" value="Add" name="addCartBtn" id ='@String.Concat("cartItem", @item.Key)' style="width:150px" data-toggle="modal" data-target="#cartSummary" />
+                        <input type="button" value="Add" name="addCartBtn" id='@String.Concat("cartItem", @item.Key)' style="width:150px" data-toggle="modal" data-target="#cartSummary" />
                     </div>
                 </div>
                 <br /><br />
@@ -53,7 +53,7 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" align="center">
-                    Shopping Cart Notice
+                    Item(s) Added
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" onclick="$('#cartSummary').modal('hide');">
                     <span>&times;</span>
@@ -61,7 +61,25 @@
             </div>
 
             <div class="modal-body">
-                This works
+                <div class="row">
+                    <div class="col">
+                        <img class="img-fluid" id="addItemImg" src="" width="200" />
+                        <br /><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span id="subTotalSpan">
+                            Cart Subtotal ( items):
+                        </span>
+                        <br /><br />
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="button" value="Go to Cart" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -86,7 +104,7 @@
                 var artQty = $('#qty' + artId).val();
 
                 // Build model data
-                var data = { ObjArtwork: {Key: artId, URL: "", Title: "", Price: 0}, Qty: artQty };
+                var data = { ObjArtwork: { Key: artId, URL: "", Title: "", Price: 0 }, Qty: artQty };
 
                 // Build JSON data string to pass to server
                 $.ajax({
@@ -95,18 +113,29 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
                     success: function (response) {
-                        alert(response);
+
+                        // Check if success
+                        if (response.status == "success") {
+
+                            // Set image
+                            var imgUrl = $('#img' + artId).attr('src');
+                            $('#addItemImg').attr('src', imgUrl);
+
+                            // Set subtotal
+                            $('#subTotalSpan').text('Cart Subtotal (' + response.cartItems + ' items): $' + response.subTotal);
+
+                            // Show cart info
+                            $('#cartSummary').modal('show');
+                        }
+                        else // Failed
+                        {
+                            alert("error");
+                        }
                     },
                     error: function () {
                         alert("error");
                     }
                 });
-
-                // Get art price and calculate total based on quantity
-
-                // Show cart info
-                $('#cartSummary').modal('show');
-
             });
         });
 

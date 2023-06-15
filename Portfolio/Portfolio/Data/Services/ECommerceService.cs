@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Portfolio.Migrations;
 using Portfolio.Models;
 
 // Service that implements the interface
@@ -13,6 +14,7 @@ namespace Portfolio.Data.Services
         {
             _dbSql = dbSql;
         }
+
 
         /*** Get ***/
         public IEnumerable<Artwork> GetAllArt()
@@ -56,7 +58,7 @@ namespace Portfolio.Data.Services
                                 join art in _dbSql.Artwork
                                 on itm.Key equals art.Key
                                 where crt.UserKey == userId && art.Key == artId
-                                select itm).ToList();
+                                select itm).AsNoTracking().ToList();  // Don't track (read-only); track if going to update right after.
 
             return (dataCartItem);
         }
@@ -68,7 +70,21 @@ namespace Portfolio.Data.Services
         {
             // Add cart item
             var newCartItem = new CartItem() { Key = artId, Qty = qty};
-            _dbSql.CartItem.Add(newCartItem);
+            var newCart = new Cart() { CartItem = newCartItem, UserKey = userId };
+            _dbSql.Cart.Add(newCart);
+
+            _dbSql.SaveChanges();
+        }
+        /*** - ***/
+
+
+        /*** Update ***/
+        public void UpdateUserCartItemQty(CartItem userCartItem)
+        {
+            // Update cart item
+            _dbSql.CartItem.Update(userCartItem);
+
+            _dbSql.SaveChanges();
         }
         /*** - ***/
     }

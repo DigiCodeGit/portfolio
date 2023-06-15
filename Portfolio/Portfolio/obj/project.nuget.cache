@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "POsG15IX9dTEUs9eVXnCRumw/8Ya/7Uc6CbCiBjuJ5xZu37A7ishl+wcR7TbFgE2OhaJ1vKPUXALwmLZenmNkw==",
+  "dgSpecHash": "lVzL4ztJmOvbarxrsyRVO+cClexCCmJlSLX3Cq+E6ARZ+kmTxPh1lxkNQvXJbvjL33ux6N+6NGr8KXIUu6JYNA==",
   "success": true,
   "projectFilePath": "C:\\Users\\blue_\\source\\repos\\Portfolio\\Portfolio\\Portfolio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\blue_\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\blue_\\.nuget\\packages\\jquery\\2.1.0\\jquery.2.1.0.nupkg.sha512",
+    "C:\\Users\\blue_\\.nuget\\packages\\jquery-vsdoc\\2.1.0\\jquery-vsdoc.2.1.0.nupkg.sha512",
     "C:\\Users\\blue_\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\blue_\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\blue_\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",

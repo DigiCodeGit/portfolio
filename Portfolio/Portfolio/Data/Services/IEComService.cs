@@ -24,5 +24,9 @@ namespace Portfolio.Data.Services
         public void AddUserCartItem(string userId, int artId, int qty);
         /*** - ***/
 
+        /*** Update ***/
+        public void UpdateUserCartItemQty(CartItem userCartItem);
+        /*** - ***/
+
     }
 }

@@ -50,7 +50,7 @@ namespace Portfolio.Controllers
         {
             // Local vars
             bool addSuccess = false;  // Notes if was able to successfully add item
-            IEnumerable<CartItem> userCartItem;    // User's cart item
+            IEnumerable<CartItem> userCartItemList;    // User's cart item list returned from sql
             string userSesId = "";    // User's session id
 
             // Init
@@ -63,17 +63,23 @@ namespace Portfolio.Controllers
                 //Artwork artPricing = _comService.GetArtById(artJSON.Key);
 
                 // Check if item was previously added already
-                userCartItem = _comService.GetUserCartItemByArtId(userSesId, artJSON.ObjArtwork.Key);
+                userCartItemList = _comService.GetUserCartItemByArtId(userSesId, artJSON.ObjArtwork.Key);
 
                 // This art exist in user's cart already
-                if (userCartItem != null)
+                if (userCartItemList != null && userCartItemList.Any())
                 {
+                    // Update quantity
+                    var userCartItem = userCartItemList.First();
+                    userCartItem.Qty = artJSON.Qty;
 
+                    _comService.UpdateUserCartItemQty(userCartItem);
                 }
                 else  // This art is being added the first time to user's cart
                 {
-
+                    _comService.AddUserCartItem(userSesId, artJSON.ObjArtwork.Key, artJSON.Qty);
                 }
+
+                // Calculate subtotal items and prices
 
                 // Note success
                 addSuccess = true;
@@ -82,11 +88,11 @@ namespace Portfolio.Controllers
             // Check if add was successful
             if (addSuccess)
             {
-                return Json("Completed");
+                return Json (new { status = "success", cartItems = 4, subTotal = 99});
             }
             else
             {
-                return Json("Failed");
+                return Json(new { status = "fail" });
             }
         }
 
