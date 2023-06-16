@@ -7,17 +7,20 @@ namespace Portfolio.Data.Services
     {
         /*** Get ***/
         // Artwork
-        IEnumerable<Artwork> GetAllArt();
-        Artwork GetArtById(int id);
+        public IEnumerable<Artwork> GetAllArt();
+        public Artwork GetArtById(int id);
 
         // Cart
-        Cart GetCartById(int id);
+        public Cart GetCartById(int id);
 
         // Cart item
-        CartItem GetCartItemById(int id);
+        public CartItem GetCartItemById(int id);
 
         // User cart item
-        IEnumerable <CartItem> GetUserCartItemByArtId(string userId, int artId);
+        public IEnumerable<CartItem> GetUserCartItemByArtId(string userId, int artId);
+
+        // User cart
+        public List<(int Key, float Price, int Qty)> GetAllUserCartItems(string userId);
         /*** - ***/
 
         /*** Insert ***/

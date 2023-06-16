@@ -62,6 +62,21 @@ namespace Portfolio.Data.Services
 
             return (dataCartItem);
         }
+
+        // User cart - using tuples as return type since annonymous from sql not allowed
+        public List<(int Key, float Price, int Qty)> GetAllUserCartItems(string userId)
+        {
+            // Retrieve items
+            var userItems = (from crt in _dbSql.Cart
+                             join itm in _dbSql.CartItem
+                             on crt.CartItemKey equals itm.CartItemKey
+                             join art in _dbSql.Artwork
+                             on itm.Key equals art.Key
+                             where crt.UserKey == userId
+                             select new { art.Key, art.Price, itm.Qty }).AsNoTracking().ToList();
+
+            return userItems.Select(x => (x.Key, x.Price, x.Qty)).ToList();
+        }
         /*** - ***/
 
 

@@ -53,15 +53,15 @@ namespace Portfolio.Controllers
             IEnumerable<CartItem> userCartItemList;    // User's cart item list returned from sql
             string userSesId = "";    // User's session id
 
+            float cartSubTotal = 0;  // Cart subtotal
+            int cartQty = 0;          // Cart quantity
+
             // Init
             userSesId = getSessionId();
 
             // Valid data
             if (artJSON != null)
             {
-                // Find/Get art info from database
-                //Artwork artPricing = _comService.GetArtById(artJSON.Key);
-
                 // Check if item was previously added already
                 userCartItemList = _comService.GetUserCartItemByArtId(userSesId, artJSON.ObjArtwork.Key);
 
@@ -70,7 +70,7 @@ namespace Portfolio.Controllers
                 {
                     // Update quantity
                     var userCartItem = userCartItemList.First();
-                    userCartItem.Qty = artJSON.Qty;
+                    userCartItem.Qty += artJSON.Qty;
 
                     _comService.UpdateUserCartItemQty(userCartItem);
                 }
@@ -79,7 +79,17 @@ namespace Portfolio.Controllers
                     _comService.AddUserCartItem(userSesId, artJSON.ObjArtwork.Key, artJSON.Qty);
                 }
 
-                // Calculate subtotal items and prices
+                // Get all cart items
+                var userItems = _comService.GetAllUserCartItems(userSesId);
+
+                // Calculate subtotal
+                foreach (var item in userItems) 
+                {
+                    cartSubTotal += item.Qty * item.Price;
+                }
+
+                // Get quantity
+                cartQty = userItems.Sum(x => x.Qty);
 
                 // Note success
                 addSuccess = true;
@@ -88,7 +98,7 @@ namespace Portfolio.Controllers
             // Check if add was successful
             if (addSuccess)
             {
-                return Json (new { status = "success", cartItems = 4, subTotal = 99});
+                return Json (new { status = "success", cartItems = cartQty, subTotal = cartSubTotal.ToString("0.00") });
             }
             else
             {
