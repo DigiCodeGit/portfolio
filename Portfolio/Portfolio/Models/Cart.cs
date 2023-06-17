@@ -17,5 +17,16 @@ namespace Portfolio.Models
 
         // User
         public string UserKey { get; set; } // Session key, since no user logins
+
+        // Timestamp
+        [DataType(DataType.DateTime)]
+        public DateTime DateTime { get; set; }
+
+
+        // Constructor
+        public Cart()
+        {
+            DateTime = DateTime.Now;
+        }
     }
 }

@@ -77,6 +77,21 @@ namespace Portfolio.Data.Services
 
             return userItems.Select(x => (x.Key, x.Price, x.Qty)).ToList();
         }
+
+        // User detailed cart
+        public List<(int Key, string Url, string Title, float Price, int Qty, DateTime DateTime)> GetAllUserCartItemsDetailed(string userId)
+        {
+            // Retrieve items
+            var userItems = (from crt in _dbSql.Cart
+                             join itm in _dbSql.CartItem
+                             on crt.CartItemKey equals itm.CartItemKey
+                             join art in _dbSql.Artwork
+                             on itm.Key equals art.Key
+                             where crt.UserKey == userId
+                             select new { art.Key, art.Url, art.Title, art.Price, itm.Qty, itm.DateTime }).AsNoTracking().ToList();
+
+            return userItems.Select(x => (x.Key, x.Url, x.Title, x.Price, x.Qty, x.DateTime)).ToList();
+        }
         /*** - ***/
 
 

@@ -21,6 +21,9 @@ namespace Portfolio.Data.Services
 
         // User cart
         public List<(int Key, float Price, int Qty)> GetAllUserCartItems(string userId);
+
+        // User detailed cart
+        public List<(int Key, string Url, string Title, float Price, int Qty, DateTime DateTime)> GetAllUserCartItemsDetailed(string userId);
         /*** - ***/
 
         /*** Insert ***/

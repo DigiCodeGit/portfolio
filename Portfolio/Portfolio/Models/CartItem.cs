@@ -20,5 +20,17 @@ namespace Portfolio.Models
         /*** Data ***/
         public int Qty { get; set; }
         /*** - ***/
+
+
+        // Timestamp
+        [DataType(DataType.DateTime)]
+        public DateTime DateTime { get; set; }
+
+
+        // Constructor
+        public CartItem()
+        {
+            DateTime = DateTime.Now;
+        }
     }
 }

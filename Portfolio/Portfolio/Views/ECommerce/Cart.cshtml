@@ -1,0 +1,92 @@
+﻿@model List<(int Key, string Url, string Title, float Price, int Qty, DateTime DateTime)> // The model that is list of Artwork will be passed from controller to this view
+
+@{
+    ViewData["Title"] = "eCommerce - Cart";
+}
+
+<!-- Itemized Listing -->
+<div class="container">
+
+    <!-- Loop through and display each item -->
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-auto">
+                <div class="row">
+
+                    <!-- Info -->
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img class="img-fluid" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                @item.Title
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                $@item.Price
+                                <br /><br />
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+
+                    <!-- Update -->
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="qty">Update Qty</label>
+                                        <select id='@String.Concat("qty", @item.Key)'>
+
+                                            @for (int i = 1; i <= 10; ++i)
+                                            {
+                                                // Check if quantity matches
+                                                if (item.Qty == i)
+                                                {
+                                                    <option value="@i" selected>@i</option>
+                                                    // Set selected to quantity
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Remove -->
+                                    <div class="col">
+                                        <input type="button" value="Remove" id='@String.Concat("removeItem", @item.Key)' style="width:100px" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost -->
+                    <div class="col">
+                        <span>
+                            $ @(item.Qty * item.Price)
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<!-- Total Price-->
+<div>
+</div>

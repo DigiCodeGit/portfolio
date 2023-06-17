@@ -28,21 +28,25 @@ namespace Portfolio.Controllers
             _comHttpAccess = comHttpAccess;
 
             // Save session info to pass to whatever view controller going to
-            ViewBag.sesId = getSessionId();
+            ViewBag.sesId = GetSessionId();
         }
 
         public IActionResult ECommerce()
         {
-            /*** Get data using service
-            // Retrieve data from database
-            var dataArtwork = _dbSql.Artwork.ToList();
-            ***/
-
             // Get data through service
             var dataArtWork = _comService.GetAllArt();
 
             // Pass the data to the view
             return View(dataArtWork);
+        }
+
+        public IActionResult Cart()
+        {
+            // Get data through service
+            var cartItemsDetail = _comService.GetAllUserCartItemsDetailed(GetSessionId());
+
+            // Pass the data to the view
+            return View(cartItemsDetail);
         }
 
         [HttpPost]
@@ -57,7 +61,7 @@ namespace Portfolio.Controllers
             int cartQty = 0;          // Cart quantity
 
             // Init
-            userSesId = getSessionId();
+            userSesId = GetSessionId();
 
             // Valid data
             if (artJSON != null)
@@ -71,6 +75,7 @@ namespace Portfolio.Controllers
                     // Update quantity
                     var userCartItem = userCartItemList.First();
                     userCartItem.Qty += artJSON.Qty;
+                    userCartItem.DateTime = DateTime.Now;
 
                     _comService.UpdateUserCartItemQty(userCartItem);
                 }
@@ -106,7 +111,7 @@ namespace Portfolio.Controllers
             }
         }
 
-        private string getSessionId()
+        private string GetSessionId()
         {
             // Get id
             if (_comHttpAccess.HttpContext.Session.GetString("SessionId") == null) // First run, no session yet
