@@ -6,5 +6,7 @@
     {
         public Artwork ObjArtwork { get; set; }
         public int Qty { get; set; }
+
+        public int Action { get; set; }
     }
 }

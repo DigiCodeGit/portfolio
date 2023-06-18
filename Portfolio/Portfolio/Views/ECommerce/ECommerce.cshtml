@@ -104,7 +104,7 @@
                 var artQty = $('#qty' + artId).val();
 
                 // Build model data
-                var data = { ObjArtwork: { Key: artId, URL: "", Title: "", Price: 0 }, Qty: artQty };
+                var data = { ObjArtwork: { Key: artId, URL: "", Title: "", Price: 0 }, Qty: artQty, Action: 0 };
 
                 // Build JSON data string to pass to server
                 $.ajax({

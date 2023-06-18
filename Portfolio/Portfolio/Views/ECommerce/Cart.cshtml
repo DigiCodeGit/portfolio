@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "eCommerce - Cart";
+    float cartTotal = 0f;
 }
 
 <!-- Itemized Listing -->
@@ -43,7 +44,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="qty">Update Qty</label>
-                                        <select id='@String.Concat("qty", @item.Key)'>
+                                        <select name="qtySel" id='@String.Concat("qty", @item.Key)'>
 
                                             @for (int i = 1; i <= 10; ++i)
                                             {
@@ -75,8 +76,14 @@
 
                     <!-- Cost -->
                     <div class="col">
-                        <span>
-                            $ @(item.Qty * item.Price)
+
+                        <span id='@String.Concat("cost", @item.Key)'>
+                            @{
+                                // Get new total and display current qty x price at the same time
+                                //
+                                // Get new total, subtract previous total (by subtracting current qty x price), to get currenty qty x price
+                            }
+                            $@(Math.Round((cartTotal += (item.Qty * item.Price)) - (cartTotal - (item.Qty * item.Price)), 2))
                         </span>
                     </div>
 
@@ -89,4 +96,58 @@
 
 <!-- Total Price-->
 <div>
+    <span id ="costTotal">
+        Total: $@cartTotal.ToString("0.00")
+    </span>
 </div>
+
+
+@section Scripts {
+
+    <script>
+
+        // wait for document ready
+        $(document).ready(function () {
+
+            // Quantity changed
+            $("select[name='qtySel'").on('change', function () {
+
+                // Get art id (id is in suffix)
+                var artId = this.id.replace("qty", "");
+
+                // Get Quantity
+                var artQty = $("#qty" + artId).val();
+
+                // Build model data
+                var data = { ObjArtwork: { Key: artId, URL: "", Title: "", Price: 0 }, Qty: artQty, Action: 1 };
+
+                // Build JSON data string to pass to server
+                $.ajax({
+                    type: "POST",
+                    url: "/ECommerce/AddToCart",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+
+                        // Check if success
+                        if (response.status == "success") {
+
+                            // Set costs
+                            $('#cost' + artId).text('$' + response.itemTotalCost);
+                            $('#costTotal').text('$' + response.subTotal);
+
+                        }
+                        else // Failed
+                        {
+                            alert("error");
+                        }
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            });
+        });
+
+    </script>
+}
