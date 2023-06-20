@@ -129,6 +129,59 @@ namespace Portfolio.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult RemoveItemFromCart([FromBody] ArtAddInfo artJSON)
+        {
+            // Local vars
+            bool addSuccess = false;  // Notes if was able to successfully add item
+            IEnumerable<CartItem> userCartItemList;    // User's cart item list returned from sql
+            string userSesId = "";    // User's session id
+
+            float cartSubTotal = 0;  // Cart subtotal
+
+            // Init
+            userSesId = GetSessionId();
+
+            // Valid data
+            if (artJSON != null)
+            {
+                // Check if item exist
+                userCartItemList = _comService.GetUserCartItemByArtId(userSesId, artJSON.ObjArtwork.Key);
+
+                // This art exist in user's cart 
+                if (userCartItemList != null && userCartItemList.Any())
+                {
+                    // Remove item
+                    var userCartItem = userCartItemList.First();
+
+                    _comService.DeleteUserCartItem(userCartItem);
+
+                    // Note success
+                    addSuccess = true;
+
+                    // Get all cart items
+                    var userItems = _comService.GetAllUserCartItems(userSesId);
+
+                    // Calculate subtotal
+                    foreach (var item in userItems)
+                    {
+                        // Cart total
+                        cartSubTotal += item.Qty * item.Price;
+                    }
+                }
+            }
+
+            // Check if add was successful
+            if (addSuccess)
+            {
+                return Json(new { status = "success", subTotal = cartSubTotal.ToString("0.00") });
+            }
+            else
+            {
+                return Json(new { status = "fail" });
+            }
+        }
+
         private string GetSessionId()
         {
             // Get id

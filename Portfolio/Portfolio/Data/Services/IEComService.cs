@@ -34,5 +34,8 @@ namespace Portfolio.Data.Services
         public void UpdateUserCartItemQty(CartItem userCartItem);
         /*** - ***/
 
+        /*** Delete ***/
+        public void DeleteUserCartItem(CartItem userCartItem);
+        /*** - ***/
     }
 }

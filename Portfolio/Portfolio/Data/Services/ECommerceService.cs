@@ -117,5 +117,19 @@ namespace Portfolio.Data.Services
             _dbSql.SaveChanges();
         }
         /*** - ***/
+
+
+        /*** Delete ***/
+        public void DeleteUserCartItem(CartItem userCartItem)
+        {
+            // Delete from Cart
+            _dbSql.Cart.Remove(_dbSql.Cart.FirstOrDefault(x => x.CartItemKey == userCartItem.CartItemKey));
+
+            // Delete from CartItem
+            _dbSql.CartItem.Remove(userCartItem);
+
+            _dbSql.SaveChanges();
+        }
+        /*** - ***/
     }
 }

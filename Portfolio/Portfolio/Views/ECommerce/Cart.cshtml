@@ -12,7 +12,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-sm-auto">
+            <div class="col-sm-auto" id='@String.Concat("itemRow", @item.Key)'>
                 <div class="row">
 
                     <!-- Info -->
@@ -67,7 +67,7 @@
                                 <div class="row">
                                     <!-- Remove -->
                                     <div class="col">
-                                        <input type="button" value="Remove" id='@String.Concat("removeItem", @item.Key)' style="width:100px" />
+                                        <input type="button" value="Remove" name="remItem" id='@String.Concat("removeItem", @item.Key)' style="width:100px" />
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +99,7 @@
     <span id ="costTotal">
         Total: $@cartTotal.ToString("0.00")
     </span>
+    <input type="button" value="Pay" />
 </div>
 
 
@@ -146,6 +147,42 @@
                         alert("error");
                     }
                 });
+            });
+
+            // Item removed
+            $("input[name='remItem'").on('click', function () {
+
+                // Get art id (id is in suffix)
+                var artId = this.id.replace("removeItem", "");
+
+                // Build model data
+                var data = { ObjArtwork: { Key: artId, URL: "", Title: "", Price: 0 }, Qty: 0, Action: 3 };
+
+                // Build JSON data string to pass to server
+                $.ajax({
+                    type: "POST",
+                    url: "/ECommerce/RemoveItemFromCart",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+
+                        // Check if success
+                        if (response.status == "success") {
+
+                            // Remove row
+                            $('#itemRow' + artId).remove();
+                            $('#costTotal').text('$' + response.subTotal);
+                        }
+                        else // Failed
+                        {
+                            alert("error");
+                        }
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+
             });
         });
 
