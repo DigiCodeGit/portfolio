@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Portfolio.Areas.Identity.Data;
 using Portfolio.Data;
 using Portfolio.Data.Services;
@@ -27,8 +28,19 @@ namespace Portfolio.Controllers
             _comService = service;
             _comHttpAccess = comHttpAccess;
 
+        }
+
+        // Viewbag cannot/won't be set inside constructor, can only be set after constructor is processed which is by
+        // event executed. Hence, override executed event.
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+
             // Save session info to pass to whatever view controller going to
             ViewBag.sesId = GetSessionId();
+
+            // Note web section we're in (for Home nav link)
+            ViewBag.controller = "ecommerce";
         }
 
         public IActionResult ECommerce()
