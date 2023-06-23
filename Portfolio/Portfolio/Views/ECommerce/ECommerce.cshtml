@@ -14,7 +14,7 @@
             <div class="col-auto border border-1 p-3">
                 <div class="row">
                     <div class="col">
-                        <img class="img-fluid  shadow-lg" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
+                        <img class="img-fluid rounded shadow-lg" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
                     </div>
                 </div>
                 <div class="row">
@@ -59,7 +59,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" align="center">
+                <h5 class="modal-title w-100 text-center">
                     Item(s) Added
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" onclick="$('#cartSummary').modal('hide');">
@@ -69,29 +69,41 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col">
-                        <img class="img-fluid" id="addItemImg" src="" width="200" />
+                    <div class="col text-center">
+                        <img class="img-fluid rounded shadow-lg" id="addItemImg" src="" width="200" />
                         <br /><br />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col text-center">
                         <span id="subTotalSpan">
-                            Cart Subtotal ( items):
+                            Cart Subtotal (
+                        </span>
+                        <span id="subTotalQty" style="font-weight:bold">
+                        </span>
+                        <span>
+                            ):
+                        </span>
+                        <span id="subTotalPrice" class="text-success">
+
                         </span>
                         <br /><br />
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <a asp-controller="ECommerce" asp-action="Cart"><input type="button" value="Go to Cart" /></a>
+                        <div class="col ms-4">
+                            <input type="button" class="btn btn-dark rounded-pill shadow" style="font-weight:bold;" value="Continue Shopping" onclick="$('#cartSummary').modal('hide');" />
+                        </div>
+                        <div class="col text-end">
+                            <a asp-controller="ECommerce" asp-action="Cart"><input type="button" class="btn btn-ecom btn-outline-dark rounded-pill shadow" style="font-weight:bold;" value=" Go to Cart" /></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>
+
 
 @section Scripts {
 
@@ -128,7 +140,11 @@
                             $('#addItemImg').attr('src', imgUrl);
 
                             // Set subtotal
-                            $('#subTotalSpan').text('Cart Subtotal (' + response.cartItems + ' items): $' + response.subTotal);
+                            $('#subTotalQty').text(response.cartItems + ' items');
+                            $('#subTotalPrice').text('$' + response.subTotal);
+
+                            // Update cart icon
+                            $('#cartIconQty').text('Cart(' + response.cartItems + ')');
 
                             // Show cart info
                             $('#cartSummary').modal('show');

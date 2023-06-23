@@ -137,6 +137,9 @@
                             $('#cost' + artId).text('$' + response.itemTotalCost);
                             $('#costTotal').text('$' + response.subTotal);
 
+                            // Update cart icon
+                            $('#cartIconQty').text('Cart(' + response.cartItems + ')');
+
                         }
                         else // Failed
                         {

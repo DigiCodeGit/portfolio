@@ -30,6 +30,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Portfolio</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Portfolio.styles.css" asp-append-version="true" />
 </head>
@@ -61,6 +63,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    <!-- Left Menus -->
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
@@ -84,8 +88,36 @@
                         </li>
 
                     </ul>
+
+                    <!-- Right Menus -->
                     <ul class="navbar-nav flex-grow-2">
+
                         <partial name="_LoginPartial.cshtml" />
+
+                        @switch (ViewBag.controller)
+                        {
+                            case "ecommerce":
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link" style="font-weight:bold; color:black;" asp-controller="ECommerce" asp-action="Cart" title="Manage">
+                                        <i id="boot-icon" class="bi bi-cart" style="font-size: 1rem; color: rgb(0, 128, 55); text-shadow: rgb(0, 0, 0) 0px 0px 0px; -webkit-text-stroke-width: 2px;">
+                                        </i>
+                                        <span id="cartIconQty">
+                                            Cart(@ViewBag.cartIconQty)
+                                        </span>
+                                    </a>
+                                </li>
+                                break;
+
+                            case "home":
+                                // Portfolio
+                                break;
+
+                            default:
+                                // Portal
+                                break;
+
+                        }
+
                     </ul>
                 </div>
             </div>

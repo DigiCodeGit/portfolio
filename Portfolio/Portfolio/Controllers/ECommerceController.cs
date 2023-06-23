@@ -41,6 +41,10 @@ namespace Portfolio.Controllers
 
             // Note web section we're in (for Home nav link)
             ViewBag.controller = "ecommerce";
+
+            // Get all cart items
+            var cartItemsQty = _comService.GetAllUserCartItems(GetSessionId());
+            ViewBag.cartIconQty = cartItemsQty.Sum(x => x.Qty);
         }
 
         public IActionResult ECommerce()
@@ -122,7 +126,7 @@ namespace Portfolio.Controllers
                         itemTotalPrice = item.Qty * item.Price;
                     }
                 }
-
+                
                 // Get quantity
                 cartQty = userItems.Sum(x => x.Qty);
 
