@@ -40,3 +40,14 @@ body {
 .login-logout-card .card-body {
     padding: 10px 20px;
 }
+
+.btn-ecom {
+    color: #000;
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+.btn-ecom:hover {
+    color: #000;
+    background-color: #3dd5f3;
+    border-color: #3dd5f3;
+}

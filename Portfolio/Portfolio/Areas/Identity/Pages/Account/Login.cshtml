@@ -1,7 +1,15 @@
 ﻿@page
 @model LoginModel
 
+@inject SignInManager<PortalIdentityUsers> SignInManager
+
 @{
+    // Redirect if already login
+    if (SignInManager.IsSignedIn(User))
+    {
+        Response.Redirect("/Identity/Account/Manage");
+    }
+    
     ViewData["Title"] = "Portal";
     Layout = "~/Areas/Identity/Pages/_LoginLayout.cshtml";
 

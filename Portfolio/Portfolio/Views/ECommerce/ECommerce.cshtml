@@ -11,25 +11,30 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-sm-auto">
+            <div class="col-auto border border-1 p-3">
                 <div class="row">
                     <div class="col">
-                        <img class="img-fluid" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
+                        <img class="img-fluid  shadow-lg" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        @item.Title
+                        <span style="font-style:italic">
+                            @item.Title
+                        </span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        $@item.Price
+                        <span class="text-success" style="font-weight:500">
+                            $@item.Price
+                        </span>
                         <br /><br />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+
+                    <div class="col pt-2">
                         <label for="qty">Qty</label>
                         <select id='@String.Concat("qty", @item.Key)'>
                             @for (int i = 1; i <= 10; ++i)
@@ -37,10 +42,12 @@
                                 <option value="@i">@i</option>
                             }
                         </select>
-                        <input type="button" value="Add" name="addCartBtn" id='@String.Concat("cartItem", @item.Key)' style="width:150px" data-toggle="modal" data-target="#cartSummary" />
+                    </div>
+
+                    <div class="col">
+                        <input type="button" class="btn btn-ecom btn-outline-dark rounded-pill shadow" value="Add" name="addCartBtn" id='@String.Concat("cartItem", @item.Key)' style="width:110px; font-weight:bold;" data-toggle="modal" data-target="#cartSummary" />
                     </div>
                 </div>
-                <br /><br />
             </div>
         }
     </div>
@@ -76,7 +83,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a asp-controller="ECommerce" asp-action="Cart"><input type="button" value="Go to Cart"/></a>
+                            <a asp-controller="ECommerce" asp-action="Cart"><input type="button" value="Go to Cart" /></a>
                         </div>
                     </div>
                 </div>
