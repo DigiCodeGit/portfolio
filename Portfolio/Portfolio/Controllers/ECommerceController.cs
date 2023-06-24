@@ -153,6 +153,7 @@ namespace Portfolio.Controllers
             IEnumerable<CartItem> userCartItemList;    // User's cart item list returned from sql
             string userSesId = "";    // User's session id
 
+            int cartQty = 0;          // Cart quantity
             float cartSubTotal = 0;  // Cart subtotal
 
             // Init
@@ -178,6 +179,9 @@ namespace Portfolio.Controllers
                     // Get all cart items
                     var userItems = _comService.GetAllUserCartItems(userSesId);
 
+                    // Get quantity
+                    cartQty = userItems.Sum(x => x.Qty);
+
                     // Calculate subtotal
                     foreach (var item in userItems)
                     {
@@ -190,7 +194,7 @@ namespace Portfolio.Controllers
             // Check if add was successful
             if (addSuccess)
             {
-                return Json(new { status = "success", subTotal = cartSubTotal.ToString("0.00") });
+                return Json(new { status = "success", cartItems = cartQty, subTotal = cartSubTotal.ToString("0.00") });
             }
             else
             {

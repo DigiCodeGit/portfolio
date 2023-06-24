@@ -6,20 +6,20 @@
 }
 
 <!-- Itemized Listing -->
-<div class="container">
+<div class="container border border-1 p-5">
 
     <!-- Loop through and display each item -->
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-sm-auto" id='@String.Concat("itemRow", @item.Key)'>
+    @foreach (var item in Model)
+    {
+        <div class="row border-bottom border-1 pt-3 pb-3" id='@String.Concat("itemRow", @item.Key)'>
+            <div class="col-sm-auto col-12">
                 <div class="row">
 
                     <!-- Info -->
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <img class="img-fluid" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
+                                <img class="img-fluid rounded shadow-lg" id='@String.Concat("img", @item.Key)' src="@item.Url" width="200" />
                             </div>
                         </div>
                         <div class="row">
@@ -30,76 +30,79 @@
                         <div class="row">
                             <div class="col">
                                 $@item.Price
-                                <br /><br />
                             </div>
                         </div>
-                        <br /><br />
                     </div>
 
                     <!-- Update -->
                     <div class="col">
+
                         <div class="row">
-                            <div class="col">
+                            <div class="col" style="width:200px">
+                                <label for="qty">Update Qty</label>
+                                <select name="qtySel" id='@String.Concat("qty", @item.Key)'>
 
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="qty">Update Qty</label>
-                                        <select name="qtySel" id='@String.Concat("qty", @item.Key)'>
+                                    @for (int i = 1; i <= 10; ++i)
+                                    {
+                                        // Check if quantity matches
+                                        if (item.Qty == i)
+                                        {
+                                            <option value="@i" selected>@i</option>
+                                            // Set selected to quantity
+                                        }
+                                        else
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    }
 
-                                            @for (int i = 1; i <= 10; ++i)
-                                            {
-                                                // Check if quantity matches
-                                                if (item.Qty == i)
-                                                {
-                                                    <option value="@i" selected>@i</option>
-                                                    // Set selected to quantity
-                                                }
-                                                else
-                                                {
-                                                    <option value="@i">@i</option>
-                                                }
-                                            }
-
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <!-- Remove -->
-                                    <div class="col">
-                                        <input type="button" value="Remove" name="remItem" id='@String.Concat("removeItem", @item.Key)' style="width:100px" />
-                                    </div>
-                                </div>
+                                </select>
                             </div>
                         </div>
+
+                        <div class="row pt-3">
+                            <!-- Remove -->
+                            <div class="col">
+                                <input type="button" class="btn btn-secondary rounded-pill shadow" value="Remove" name="remItem" id='@String.Concat("removeItem", @item.Key)' style="width:100px" />
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Cost -->
                     <div class="col">
 
-                        <span id='@String.Concat("cost", @item.Key)'>
+                        <span id='@String.Concat("cost", @item.Key)' class="text-success" style="font-weight:bold">
                             @{
                                 // Get new total and display current qty x price at the same time
                                 //
                                 // Get new total, subtract previous total (by subtracting current qty x price), to get currenty qty x price
                             }
-                            $@(Math.Round((cartTotal += (item.Qty * item.Price)) - (cartTotal - (item.Qty * item.Price)), 2))
+                            $@(Math.Round((cartTotal += (item.Qty * item.Price)) - (cartTotal - (item.Qty * item.Price)), 2).ToString("0.00"))
                         </span>
                     </div>
 
                 </div>
             </div>
-        }
-    </div>
-
+        </div>
+    }
 </div>
 
 <!-- Total Price-->
-<div>
-    <span id ="costTotal">
-        Total: $@cartTotal.ToString("0.00")
-    </span>
-    <input type="button" value="Pay" />
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="=col col-6 mt-1" style="text-align:right">
+            <span style="font-weight:bolder; font-size: 1.3rem;">
+                Total:
+            </span>
+            <span id="costTotal" class="text-success" style="font-weight:bolder; font-size: 1.3rem;">
+                $@cartTotal.ToString("0.00")
+            </span>
+        </div>
+        <div class="col col-6">
+            <input type="button" class="btn btn-ecom btn-outline-dark rounded-pill shadow" style="width:110px; font-weight:bold;" value="Pay" />
+        </div>
+    </div>
 </div>
 
 
@@ -174,7 +177,10 @@
 
                             // Remove row
                             $('#itemRow' + artId).remove();
+
+                            // Update
                             $('#costTotal').text('$' + response.subTotal);
+                            $('#cartIconQty').text('Cart(' + response.cartItems + ')');
                         }
                         else // Failed
                         {
