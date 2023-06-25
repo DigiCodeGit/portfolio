@@ -36,6 +36,7 @@ namespace Portfolio.Data.Services
 
         /*** Delete ***/
         public void DeleteUserCartItem(CartItem userCartItem);
+        public void DeleteUserCart(string userId);
         /*** - ***/
     }
 }

@@ -130,6 +130,24 @@ namespace Portfolio.Data.Services
 
             _dbSql.SaveChanges();
         }
+
+        public void DeleteUserCart(String userId)
+        {
+            // Get all items in cart
+            List<Cart> userCart = _dbSql.Cart.Where(x => x.UserKey == userId).ToList(); //.Select(col => col.CartItemKey).ToList();
+
+            // Delete from Cart
+            _dbSql.Cart.RemoveRange(userCart);
+
+            // Delete from CartItem
+            //foreach (item in userCart)
+            //{
+            //    _dbSql.CartItem.Remove(cartItems);
+            //}
+            
+
+            _dbSql.SaveChanges();
+        }
         /*** - ***/
     }
 }

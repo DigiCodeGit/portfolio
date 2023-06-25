@@ -65,6 +65,21 @@ namespace Portfolio.Controllers
             return View(cartItemsDetail);
         }
 
+        public IActionResult Complete(int pay)
+        {
+            // Check if pay was clicked
+            if (pay == 1) 
+            {
+                // Delete all cart items
+
+                // Note completion
+                ViewBag.completeMsg = "Order Completed (note: no item was purchased, nor will be delivered)"; 
+            }
+
+            // Pass the data to the view
+            return View();
+        }
+
         [HttpPost]
         public JsonResult AddToCart([FromBody] ArtAddInfo artJSON)
         {
