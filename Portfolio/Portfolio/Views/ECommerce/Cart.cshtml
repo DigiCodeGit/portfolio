@@ -6,7 +6,12 @@
 }
 
 <!-- Itemized Listing -->
-<div class="container border border-1 pt-5 ps-5 pe-5" style="width:500px;">
+<div class="container border border-3 pt-3 ps-5 pe-5" style="width:500px;">
+    <div class="row pb-2" style="text-align:center; text-decoration:underline;">
+        <div class="col">
+            <h5>Order Details</h5>
+        </div>
+    </div>
 
     <!-- Loop through and display each item -->
     @foreach (var item in Model)
@@ -101,9 +106,28 @@
 
 <!-- Total Price-->
 <div class="container" id="contPay" hidden>
-    <div class="row mt-3" style="text-align:center">
-        <div class="col col-12">
-            <a asp-controller="ECommerce" asp-action="Complete" asp-route-pay=1><input type="button" class="btn btn-ecom btn-outline-dark rounded-pill shadow" style="width:110px; font-weight:bold;" value="Pay" /></a>
+
+    <div class="container border border-3 mt-4 mb-3 pt-3 pb-3" style="width:500px">
+        <div class="row" style="text-align:center">
+            <div class="col" style="text-align:center">
+                <input type="radio" name="payType" id="payWithPal" checked />
+                <label for="payWithPal">
+                    <img width="180" height="34" src="https://www.paypalobjects.com/digitalassets/c/website/marketing/apac/C2/logos-buttons/34_Yellow_CheckOut_Pill_Button.png" alt="Check out with PayPal" />
+                </label>
+                &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="payType" id="payWithCred" />
+                <label for="payWithCred">
+                    <img width="180" height="34" src="https://www.merchantequip.com/images/logos/credit-cards.gif" width="249" height="34" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-5" style="text-align:center">
+            <div class="col">
+                <a asp-controller="ECommerce" asp-action="Complete" asp-route-pay=1><input type="button" class="btn btn-ecom btn-outline-dark rounded-pill shadow" style="width:150px; font-weight:bold;" value="Complete Order" /></a>
+            </div>
         </div>
     </div>
 </div>

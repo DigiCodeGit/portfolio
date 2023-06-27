@@ -136,16 +136,20 @@ namespace Portfolio.Data.Services
             // Get all items in cart
             List<Cart> userCart = _dbSql.Cart.Where(x => x.UserKey == userId).ToList(); //.Select(col => col.CartItemKey).ToList();
 
-            // Delete from Cart
+            // Delete from Cart table
             _dbSql.Cart.RemoveRange(userCart);
 
-            // Delete from CartItem
-            //foreach (item in userCart)
-            //{
-            //    _dbSql.CartItem.Remove(cartItems);
-            //}
+            // Create cartItem class to delete from sql same time
+            List<CartItem> userCartItems = new List<CartItem>();
+            foreach (Cart item in userCart)
+            {
+                userCartItems.Add(new CartItem() { CartItemKey = item.CartItemKey });
+            }
             
+            // Delete from Cart Item table
+            _dbSql.CartItem.RemoveRange(userCartItems);
 
+            // Process deletes
             _dbSql.SaveChanges();
         }
         /*** - ***/

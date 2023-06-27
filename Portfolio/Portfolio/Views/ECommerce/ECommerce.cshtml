@@ -62,7 +62,7 @@
 
             <div class="modal-header">
                 <h5 class="modal-title w-100 text-center">
-                    Item(s) Added
+                    <span id="numItemsAdded"></span> Item(s) Added
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" onclick="$('#cartSummary').modal('hide');">
                     <span>&times;</span>
@@ -140,6 +140,9 @@
                             // Set image
                             var imgUrl = $('#img' + artId).attr('src');
                             $('#addItemImg').attr('src', imgUrl);
+
+                            // Set numbers item added
+                            $('#numItemsAdded').text(response.cartItemsAdded);
 
                             // Set subtotal
                             $('#subTotalQty').text(response.cartItems + ' items');
