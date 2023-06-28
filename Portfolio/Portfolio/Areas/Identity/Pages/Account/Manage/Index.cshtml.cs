@@ -57,6 +57,7 @@ namespace Portfolio.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Phone]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone must be 10 digits long.")]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
         }

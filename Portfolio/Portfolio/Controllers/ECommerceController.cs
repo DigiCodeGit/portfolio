@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Portfolio.Areas.Identity.Data;
-using Portfolio.Data;
 using Portfolio.Data.Services;
 using Portfolio.Models;
 
@@ -18,10 +16,15 @@ namespace Portfolio.Controllers
         }
         ***/
 
+
+        /*** Variables ***/
         // Local vars
         private readonly IHttpContextAccessor _comHttpAccess; // Allows us to access Session from HTTP
         private readonly IEComService _comService;
+        /*** --- Variables --- ***/
 
+
+        /*** Init ***/
         // Constructor - use to set service
         public ECommerceController(IEComService service, IHttpContextAccessor comHttpAccess)
         {
@@ -46,7 +49,10 @@ namespace Portfolio.Controllers
             var cartItemsQty = _comService.GetAllUserCartItems(GetSessionId());
             ViewBag.cartIconQty = cartItemsQty.Sum(x => x.Qty);
         }
+        /*** --- Init --- ***/
 
+
+        /*** Views ***/
         public IActionResult ECommerce()
         {
             // Get data through service
@@ -80,7 +86,10 @@ namespace Portfolio.Controllers
             // Pass the data to the view
             return View();
         }
+        /*** --- Views --- ***/
 
+
+        /*** Json ***/
         [HttpPost]
         public JsonResult AddToCart([FromBody] ArtAddInfo artJSON)
         {
@@ -221,7 +230,10 @@ namespace Portfolio.Controllers
                 return Json(new { status = "fail" });
             }
         }
+        /*** --- Json --- ***/
 
+
+        /*** Functions ***/
         private string GetSessionId()
         {
             // Get id
@@ -232,5 +244,6 @@ namespace Portfolio.Controllers
 
             return _comHttpAccess.HttpContext.Session.GetString("SessionId");
         }
+        /*** --- Functions --- ***/
     }
 }

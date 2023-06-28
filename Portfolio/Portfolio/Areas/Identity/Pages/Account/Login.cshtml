@@ -9,7 +9,7 @@
     {
         Response.Redirect("/Identity/Account/Manage");
     }
-    
+
     ViewData["Title"] = "Portal";
     Layout = "~/Areas/Identity/Pages/_LoginLayout.cshtml";
 
@@ -20,14 +20,14 @@
     var guestPass = "Guest1!";
 
     // Member tab selected
-    if (Request.Query["guestId"] == "memberTab") 
+    if (Request.Query["guestId"] == "memberTab")
     {
         // Set tab
         guestSet = "memberTab";
         guestLock = false; // Allow editing inputs
 
         // Leave empty for user to fill
-        guestUser = "";          
+        guestUser = "";
         guestPass = "";
     }
 }
@@ -37,94 +37,70 @@
 <hr />
 <form id="account" method="post">
     <div class="form-group">
-    <!-- Error Messages-->
-    <div asp-validation-summary="ModelOnly" class="text-danger" align="left"></div>
+        <!-- Error Messages-->
+        <div asp-validation-summary="ModelOnly" class="text-danger" align="left"></div>
 
-    <!-- Inputs -->
-    <div class="form-floating"> <!-- Make label text show inside input field-->
-        @{
-            // Username - Guest account
-            if (guestLock)
-            {
-                // Set guest
-                <input asp-for="Input.Email" readonly value="@guestUser" class="form-control" autocomplete="username" aria-required="true" />
-            }
-            else
-            {
-                // Utilize user entry
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-            }
-            
-            // No change whether guest or not
-            <label asp-for="Input.Email" class="form-label"></label>
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        }
-    </div>
-
-    <div class="form-floating">
-        @{
-            // Password - Guest account
-            if (guestLock)
-            {
-                // Set guest
-                <input asp-for="Input.Password" value="@guestPass" readonly class="form-control" autocomplete="current-password" aria-required="true" />
-            }
-            else
-            {
-                // Utilize user entry
-                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-            }
-
-            // No change whether guest or not
-            <label asp-for="Input.Password" class="form-label"></label>
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        }
-    </div>
-
-    <div>
-        <input type="hidden" id="guestId" value="@(guestSet)" />
-    </div>
-
-    <!-- Options -->
-    <p></p>
-    <div class="checkbox">
-        @{
-            // Not guest
-            if (!guestLock)
-            {
-                // Remember
-                <label asp-for="Input.RememberMe" class="form-label">
-                    <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-            }
-        }
-    </div>
-
-    <!-- Submit -->
-    <p></p>
-    <div>
-        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-    </div>
-
-    <!-- Additional features -->
-    <p></p>
-    <div>
-        <p>
+        <!-- Inputs -->
+        <div class="form-floating">
+            <!-- Make label text show inside input field-->
             @{
-                // Not guest
-                if (!guestLock)
+                // Username - Guest account
+                if (guestLock)
                 {
-                    // Forgot Pass
-                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a>
+                    // Set guest
+                    <input asp-for="Input.Email" readonly value="@guestUser" class="form-control" autocomplete="username" aria-required="true" />
                 }
+                else
+                {
+                    // Utilize user entry
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                }
+
+                // No change whether guest or not
+                <label asp-for="Input.Email" class="form-label"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
             }
-        </p>
-        <p>
-            <!-- Register -->
-            <a asp-page="./Register">Register</a>
-        </p>
-    </div>
+        </div>
+
+        <div class="form-floating">
+            @{
+                // Password - Guest account
+                if (guestLock)
+                {
+                    // Set guest
+                    <input asp-for="Input.Password" value="@guestPass" readonly class="form-control" autocomplete="current-password" aria-required="true" />
+                }
+                else
+                {
+                    // Utilize user entry
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                }
+
+                // No change whether guest or not
+                <label asp-for="Input.Password" class="form-label"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            }
+        </div>
+
+        <div>
+            <input type="hidden" id="guestId" value="@(guestSet)" />
+        </div>
+
+        <!-- Options -->
+        <!-- Submit -->
+        <p></p>
+        <div>
+            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+        </div>
+
+        <!-- Additional features -->
+        <p></p>
+        <div>
+            <p>
+                <!-- Register -->
+                <a asp-page="./Register">Register</a>
+            </p>
+        </div>
     </div>
 </form>
 

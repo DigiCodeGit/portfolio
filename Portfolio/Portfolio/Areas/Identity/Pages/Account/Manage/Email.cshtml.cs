@@ -129,7 +129,7 @@ namespace Portfolio.Areas.Identity.Pages.Account.Manage
                     "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "This functionality is disabled during Demo. No confirmation email was sent to new email.";
                 return RedirectToPage();
             }
 

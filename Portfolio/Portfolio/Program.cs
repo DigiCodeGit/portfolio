@@ -48,6 +48,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
     options.Password.RequiredLength = 6;
 
+    // Don't require email confirmation when registering
+    options.SignIn.RequireConfirmedAccount = false;
+
     // Default Lockout settings.
     //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     //options.Lockout.MaxFailedAccessAttempts = 5;
