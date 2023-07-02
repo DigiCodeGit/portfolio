@@ -80,7 +80,7 @@ namespace Portfolio.Controllers
                 _comService.DeleteUserCart(GetSessionId());
 
                 // Note completion
-                ViewBag.completeMsg = "Order Completed (note: no item was purchased, nor will be delivered)"; 
+                ViewBag.completeMsg = "Order Completed (note: no item was purchased, nor will be delivered for this Demo)"; 
             }
 
             // Pass the data to the view
